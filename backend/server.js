@@ -1,17 +1,46 @@
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
+import dotenv from 'dotenv';
 import express from 'express';
 import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
 import hpp from 'hpp';
+import mongoose from 'mongoose';
 import morgan from 'morgan';
 import emoji from 'node-emoji';
 import responseTime from 'response-time';
 import favicon from 'serve-favicon';
 import indexRouter from './routes/index';
+import playerRouter from './routes/player';
+
+let db = null;
+
+dotenv.config();
+
+mongoose.connect(
+  (`mongodb://${process.env.USER}:${process.env.PASSWORD}@${process.env.HOST}:${process.env.MONGO_PORT}/${process.env.DATABASE}`,
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  }),
+  (err, client) => {
+    if (err) {
+      console.error('An error occurred connecting to MongoDB: ', err);
+    } else {
+      console.log('MongoDB connection success');
+      db = client.db(process.env.DATABASE);
+    }
+  }
+);
 
 const app = express();
+
+app.post('/test', (req, res) => {
+  console.log(req.body);
+  db.collection('test').insertOne(req.body);
+  res.status(200).send();
+});
 
 // secure the server by setting various HTTP headers
 app.use(helmet());
@@ -54,6 +83,7 @@ app.use(
 
 // routes
 app.use('/', indexRouter);
+app.use('/player', playerRouter);
 
 // setup ip address and port number
 app.set('port', process.env.PORT || 3000);
