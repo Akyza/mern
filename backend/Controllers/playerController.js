@@ -20,3 +20,8 @@ export const getAll = (req, res) => {
     res.send(players);
   });
 };
+
+/*export const getbyId = (req, res) => {
+  var player = await Player.findById(req.params.id).lean();
+  res.json(player);
+}*/

@@ -14,6 +14,7 @@ import favicon from 'serve-favicon';
 import indexRouter from './routes/index';
 import playerRouter from './routes/player';
 import userRouter from './routes/user';
+import personRouter from './routes/person';
 
 let db = null;
 
@@ -79,6 +80,8 @@ app.use(
 // routes
 app.use('/', indexRouter);
 app.use('/player', playerRouter);
+app.use('/user', userRouter);
+app.use('/person', personRouter);
 
 // setup ip address and port number
 app.set('port', process.env.PORT || 3000);
