@@ -17,6 +17,12 @@ export const ensureIsAuthenticated = (req, res, next) => {
         return res.status(401).send('invalid token');
     }
 
+    /*const payload = {
+        exp: moment().add(1, 'hour').unix(),
+        iat: moment().unix(),
+        iss: person.id
+    }*/
+
     if(payload.exp <= moment().unix()){
         return res.status(401).send('Token expiré');
     }

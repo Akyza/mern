@@ -1,12 +1,17 @@
 import Person from '../Models/personModel';
 import moment from 'moment';
 import jwt from 'jwt-simple';
+import bcrypt from 'bcryptjs';
 
 export const signUp = async (req, res) => {
     let person = new Person(req.body);
-    var createdPerson = await person.save();
 
-    res.json(createdPerson);
+    try {
+        var createdPerson = await person.save();
+        res.json(createdPerson);
+    } catch (error) {
+        res.send('an error occured');
+    }
 }
 
 export const login = async (req, res) => {
@@ -32,8 +37,8 @@ export const login = async (req, res) => {
                 token: `Bearer ${token}`,
                 expiration: moment().add(1, 'hour').format('YYYY-MM-DD HH:mm')
             })
+        }else{
+            res.send('email or password incorrect');
         }
-
-        res.send('email or password incorrect');
     });
 }
