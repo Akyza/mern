@@ -13,12 +13,11 @@ import responseTime from 'response-time';
 import favicon from 'serve-favicon';
 import indexRouter from './routes/index';
 import playerRouter from './routes/player';
+import userRouter from './routes/user';
 
 let db = null;
 
 dotenv.config();
-
-console.log(`mongodb://${process.env.USER}:${process.env.PASSWORD}@${process.env.HOST}:${process.env.MONGO_PORT}/${process.env.DATABASE}`);
 
 mongoose.connect(
   `mongodb://${process.env.USER}:${process.env.PASSWORD}@${process.env.HOST}:${process.env.MONGO_PORT}/${process.env.DATABASE}`,

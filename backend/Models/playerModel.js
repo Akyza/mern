@@ -5,7 +5,7 @@ const playerSchema = new Schema({
     type: String,
     required: true
   },
-  lastName: {
+  /*lastName: {
     type: String,
     required: true
   },
@@ -20,7 +20,7 @@ const playerSchema = new Schema({
   speed: {
     type: Number,
     enum: [1, 2, 3]
-  },
+  },*/
   createDate: {
     type: Date,
     default: Date.now

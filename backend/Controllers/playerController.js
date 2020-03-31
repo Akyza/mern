@@ -3,6 +3,7 @@ import playerSchema from '../Models/playerModel';
 const Player = mongoose.model('Player', playerSchema);
 
 export const addPlayer = (req, res) => {
+  console.log(req.body);
   Player(req.body).save((err, createdPlayer) => {
     if(err){
       res.send('Error player');
