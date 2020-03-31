@@ -1,7 +1,7 @@
 import express from 'express';
-import { add, getAll } from '../controllers/playerController';
+import { addPlayer, getAll } from '../controllers/playerController';
 let playerRouter = express.Router();
 
-playerRouter.post('/', add);
+playerRouter.post('/', addPlayer);
 playerRouter.get('/', getAll);
 export default playerRouter;

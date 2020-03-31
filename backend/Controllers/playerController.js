@@ -2,14 +2,13 @@ import mongoose from 'mongoose';
 import playerSchema from '../Models/playerModel';
 const Player = mongoose.model('Player', playerSchema);
 
-export const add = (req, res) => {
-  let newPlayer = new Player(req.body);
-  newPlayer.save((err, createdPlayer) => {
-    if (err) {
-      res.send(err);
+export const addPlayer = (req, res) => {
+  Player(req.body).save((err, createdPlayer) => {
+    if(err){
+      res.send('Error player');
     }
     res.json(createdPlayer);
-  });
+  })
 };
 
 export const getAll = (req, res) => {

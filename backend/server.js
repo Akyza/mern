@@ -18,19 +18,15 @@ let db = null;
 
 dotenv.config();
 
+console.log(`mongodb://${process.env.USER}:${process.env.PASSWORD}@${process.env.HOST}:${process.env.MONGO_PORT}/${process.env.DATABASE}`);
+
 mongoose.connect(
-  (`mongodb://${process.env.USER}:${process.env.PASSWORD}@${process.env.HOST}:${process.env.MONGO_PORT}/${process.env.DATABASE}`,
+  `mongodb://${process.env.USER}:${process.env.PASSWORD}@${process.env.HOST}:${process.env.MONGO_PORT}/${process.env.DATABASE}`,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true
-  }),
-  (err, client) => {
-    if (err) {
-      console.error('An error occurred connecting to MongoDB: ', err);
-    } else {
-      console.log('MongoDB connection success');
-      db = client.db(process.env.DATABASE);
-    }
+  }).then(() => {
+    console.log(emoji.get('heavy_check_mark'), 'MongoDB connection success');
   }
 );
 
